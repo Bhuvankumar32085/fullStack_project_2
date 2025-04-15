@@ -1,0 +1,19 @@
+<% layout('/layouts/boilerplate.ejs') %>
+<h1 class="h1">All Listings</h1>
+<div class="card-con">
+   <div class="c-card">
+    <% for( let i = 0; i < data.length; i++ ) { %>
+        <!-- <a href=""> -->
+            <div class="card" style="width: 18rem;">
+                <img src="<%= data[i].image%>" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <a href="/listings/<%= data[i]._id%>" ><%= data[i].title %></a>
+                  <p class="card-text">Price : <%= data[i].price%></p>
+                  <p class="card-text"> Location : <%= data[i].location%></p>
+                  <p class="card-text">Contary : <%= data[i].country%></p>
+                </div>
+            </div>
+        <!-- </a> -->
+    <% } %>
+   </div>
+</div>
