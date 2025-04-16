@@ -34,7 +34,12 @@ router.get("/create", (req, res) => {
 router.get("/:id", asyncWrap(async (req, res,next) => {
     let { id } = req.params;
     let data = await Listing.findById(id).populate('reviews');
-    res.render("show.ejs", { data });
+    if(!data){
+      req.flash('success','Listing you requested for does not exist!')
+      res.redirect('/listings')
+    }else{
+      res.render("show.ejs", { data });
+    }
 }));
 
 //create
