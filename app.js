@@ -4,8 +4,18 @@ const path = require("path");
 const methodOverride = require("method-override");
 const app = express();
 const ExpressError=require('./error.js');
-const listings=require('./routes/listing.js')
-const reviews=require('./routes/reviews.js')
+
+//passcort
+const passport=require('passport')
+const localStrategy=require('passport-local')
+
+//model
+const User=require('./model/user.js')
+
+//router
+const listingsRouter=require('./routes/listing.js')
+const reviewsRouter=require('./routes/reviews.js')
+const userRouter=require('./routes/user.js')
 
 //express-session
 const session=require('express-session')
@@ -24,6 +34,15 @@ app.use(session({
 //flash
 const flash=require('connect-flash')
 app.use(flash())
+
+//passport ---------
+app.use(passport.initialize());
+app.use(passport.session());
+// use static authenticate method of model in LocalStrategy
+passport.use(new localStrategy(User.authenticate()));
+// use static serialize and deserialize of model for passport session support
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 //ejs-mate for provide styling for ejs html file
 const engine = require('ejs-mate')
@@ -48,7 +67,7 @@ app.use((req,res,next)=>{
   next()
 })
 
-//DB
+//DB connection 
 async function main() {
   await mongoose.connect("mongodb://127.0.0.1:27017/wanderlust");
 }
@@ -66,17 +85,32 @@ app.get("/", (req, res) => {
   res.send("root");
 });
 
+//demo --> user add 
+// app.get('/demouser',async(req,res)=>{
+//    let fakeUser=new User({
+//      email:'student@gmail.com',
+//      username:'student@gmail.com',
+//    });
+
+//    let useDsta=await User.register(fakeUser,'pass32085')
+//    res.send(useDsta)
+// })
+
 //flash middleware
 app.use((req,res,next)=>{
   res.locals.success=req.flash('success');
+  res.locals.error=req.flash('error');
   next()
 })
 
 //listings rout 
-app.use('/listings',listings)
+app.use('/listings',listingsRouter)
 
 //reviews rout 
-app.use('/listings/:id/reviews',reviews)
+app.use('/listings/:id/reviews',reviewsRouter)
+
+//reviews rout 
+app.use('/',userRouter)
 
 //page not found
 app.all("*", (req, res, next) => {
