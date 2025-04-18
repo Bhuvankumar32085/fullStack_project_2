@@ -41,4 +41,14 @@ userRout.post(
   })
 );
 
+userRout.get('/logout',(req,res)=>{
+  req.logout((err)=>{
+    if(err){
+      next(err);
+    }
+    req.flash("success", "Successfull logout");
+    res.redirect('/listings')
+  })
+})
+
 module.exports = userRout;

@@ -85,17 +85,6 @@ app.get("/", (req, res) => {
   res.send("root");
 });
 
-//demo --> user add 
-// app.get('/demouser',async(req,res)=>{
-//    let fakeUser=new User({
-//      email:'student@gmail.com',
-//      username:'student@gmail.com',
-//    });
-
-//    let useDsta=await User.register(fakeUser,'pass32085')
-//    res.send(useDsta)
-// })
-
 //flash middleware
 app.use((req,res,next)=>{
   res.locals.success=req.flash('success');
