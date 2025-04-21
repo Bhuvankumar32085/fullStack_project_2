@@ -59,3 +59,20 @@
 .h1{
   text-align: center;
 }
+
+.login-btn a{
+   text-decoration: none;
+   /* background-color: grey; */
+   color: black;
+   padding: 5px 10px;
+   border-radius: 5px;
+}
+
+.logout-btn a{
+  margin-left: 10px;
+   text-decoration: none;
+   /* background-color: grey; */
+   color: black;
+   padding: 5px 10px;
+   border-radius: 5px;
+}

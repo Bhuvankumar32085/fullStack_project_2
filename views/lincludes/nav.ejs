@@ -20,5 +20,18 @@
           </li>
         </ul>
       </div>
+      <% if (!currUser) { %>
+        <div class="login-btn">
+          <a href="/login">LogIn</a>
+        </div>
+        <div class="logout-btn">
+          <a href="/signup">SignUp</a>
+        </div>
+      <% } %>
+      <% if (currUser) { %>
+        <div class="logout-btn">
+          <a href="/logout">LogOut</a>
+        </div>
+      <% } %>
     </div>
 </nav>
