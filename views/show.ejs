@@ -24,27 +24,31 @@
       </ul>
     </div>
 
-    <div class="action-buttons">
-      <a href="/listings/<%= data._id %>/edit" class="btn edit-btn">Edit</a>
-      <form method="POST" action="/listings/<%= data._id %>?_method=DELETE">
-        <button type="submit" class="btn delete-btn">Delete</button>
-      </form>
-    </div>
+    <% if (currUser && currUser._id.equals(data.owner._id)) { %>
+      <div class="action-buttons">
+        <a href="/listings/<%= data._id %>/edit" class="btn edit-btn">Edit</a>
+        <form method="POST" action="/listings/<%= data._id %>?_method=DELETE">
+          <button type="submit" class="btn delete-btn">Delete</button>
+        </form>
+      </div>
+    <% } %>
 
-    <div class="action-btn2">
-      <h4>Leave a Review</h4>
-      <form method="POST" action="/listings/<%= data._id %>/reviews">
-        <div>
-          <label for="rating">Rating</label>
-          <input type="range" min="1" max="5" id="rating" name="review[rating]" required>
-        </div>
-        <div>
-          <label for="comm">Comment</label>
-          <textarea name="review[comment]" id="comm" required></textarea>
-        </div>
-        <button class="btn">Submit Review</button>
-      </form>
-    </div>
+    <% if (currUser) { %>
+      <div class="action-btn2">
+        <h4>Leave a Review</h4>
+        <form method="POST" action="/listings/<%= data._id %>/reviews">
+          <div>
+            <label for="rating">Rating</label>
+            <input type="range" min="1" max="5" id="rating" name="review[rating]" required>
+          </div>
+          <div>
+            <label for="comm">Comment</label>
+            <textarea name="review[comment]" id="comm" required></textarea>
+          </div>
+          <button class="btn">Submit Review</button>
+        </form>
+      </div>
+    <% } %>
 
     <div class="review">
       <h2>All Reviews</h2>

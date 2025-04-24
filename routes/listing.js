@@ -3,7 +3,7 @@ const router=express.Router();
 const {listingSchema} = require('../schema.js');
 const ExpressError=require('../error.js');
 const Listing = require("../model/listings.js");
-const {isLoggedIn}=require('../middleware.js')
+const {isLoggedIn, isOwner}=require('../middleware.js')
 
 const validateListing=(req,res,next)=>{
     let { error }=listingSchema.validate(req.body)
@@ -52,23 +52,23 @@ router.post("/", validateListing,asyncWrap(async (req, res,next) => {
 }));
 
 //edit
-router.get("/:id/edit", isLoggedIn,asyncWrap(async (req, res,next) => {
+router.get("/:id/edit", isLoggedIn,isOwner,asyncWrap(async (req, res,next) => {
   let { id } = req.params;
     let userData = await Listing.findById(id);
     res.render("edit.ejs", { userData });
 }));
 
 // update
-router.put("/:id",isLoggedIn,asyncWrap(async (req, res,next) => {
+router.put("/:id",isLoggedIn,isOwner,asyncWrap(async (req, res,next) => {
   let { id } = req.params;
   let data = req.body.Listing;
-    await Listing.findByIdAndUpdate(id, { ...data });
-    req.flash('success','Listing Updated !')
-    res.redirect(`/listings/${id}`);
+      await Listing.findByIdAndUpdate(id, { ...data });
+      req.flash('success','Listing Updated !')
+      res.redirect(`/listings/${id}`);
 }));
 
 // delete
-router.delete("/:id",isLoggedIn, asyncWrap(async (req, res,next) => {
+router.delete("/:id",isLoggedIn, isOwner,asyncWrap(async (req, res,next) => {
   let { id } = req.params;
     await Listing.findByIdAndDelete(id);
     req.flash('success','Listing Deleted!')
