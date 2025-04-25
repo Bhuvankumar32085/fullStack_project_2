@@ -55,6 +55,7 @@
       <div class="c-reviews">
         <% data.reviews.forEach(review => { %>
           <div class="review-card">
+            <h5>@<%= review.author.username %></h5>
             <div class="rating">Rating: <%= review.rating %> ⭐</div>
             <div class="comment">Comment: <%= review.comment %></div>
             <form method="POST" action="/listings/<%= data._id %>/reviews/<%= review._id %>?_method=DELETE">
