@@ -1,40 +1,94 @@
 <% layout('/layouts/boilerplate.ejs') %>
 <style>
-   
-    .filters{
-       display: flex;
-       height: 70px;
-       align-items: center;
-       padding: 0 30px 0 30px;
-       position: relative;
+    .filters {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 12px 16px;
+      gap: 1.5rem;
+      border-bottom: 1px solid #ddd;
+      background-color: #ffffff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      scroll-behavior: smooth;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
-    .filter{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-left: 2rem;
-        opacity: 0.7;
+  
+    .filters::-webkit-scrollbar {
+      height: 8px;
     }
-    .filter span{
-        font-size: 0.9rem;
-        margin-top: 6px;
+  
+    .filters::-webkit-scrollbar-thumb {
+      background-color: rgba(0, 0, 0, 0.15);
+      border-radius: 10px;
     }
-
-    .filter:hover{
-        opacity: 1;
-        cursor: pointer;
+  
+    .filter {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 70px;
+      flex-shrink: 0;
+      opacity: 0.7;
+      transition: all 0.3s ease;
+      text-align: center;
     }
-    .taxt-toggle{
-      position: absolute;
-      right: 60px;
-      border: 1px solid black;
-      padding: 5px 10px ;
-      border-radius: 10px ;
+  
+    .filter i {
+      font-size: 1.3rem;
+      color: #333;
     }
-    .hidden-class{
-        display: none;
+  
+    .filter span {
+      font-size: 0.82rem;
+      margin-top: 6px;
+      color: #555;
     }
-</style>
+  
+    .filter:hover {
+      opacity: 1;
+      transform: scale(1.05);
+      cursor: pointer;
+    }
+  
+    .taxt-toggle {
+      flex-shrink: 0;
+      margin-left: auto;
+      padding: 6px 12px;
+      border-radius: 12px;
+      border: 1px solid #333;
+      background-color: #f8f8f8;
+      white-space: nowrap;
+    }
+  
+    @media (max-width: 768px) {
+      .taxt-toggle {
+        position: static;
+        margin-left: auto;
+        font-size: 0.8rem;
+        padding: 5px 8px;
+      }
+    }
+  
+    @media (max-width: 480px) {
+      .filter span {
+        font-size: 0.75rem;
+      }
+  
+      .filter i {
+        font-size: 1.1rem;
+      }
+  
+      .filters {
+        padding: 10px 12px;
+        gap: 1rem;
+      }
+    }
+  </style>
+  
+  
 
 <div class="filters">
     <div class="filter">
