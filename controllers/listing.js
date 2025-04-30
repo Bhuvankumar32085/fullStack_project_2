@@ -24,7 +24,13 @@ module.exports.showRout = async (req, res, next) => {
 
 module.exports.created = async (req, res, next) => {
   let data = req.body.Listing;
+  let url=req.file.path
+  let filename=req.file.filename
+  // console.log(url,filename)
+ 
   let listing = new Listing({ ...data });
+  listing.image.url=url;
+  listing.image.filename=filename;
   listing.owner = req.user._id;
   await listing.save();
   req.flash("success", "New Listing Created !");
@@ -40,7 +46,17 @@ module.exports.edit = async (req, res, next) => {
 module.exports.update = async (req, res, next) => {
   let { id } = req.params;
   let data = req.body.Listing;
-  await Listing.findByIdAndUpdate(id, { ...data });
+  let listing=await Listing.findByIdAndUpdate(id, { ...data });
+
+  console.log(req.file)
+   
+  if(typeof req.file !== 'undefined'){
+    let url=req.file.path
+    let filename=req.file.filename
+    listing.image={url,filename}
+    await listing.save()
+  }
+
   req.flash("success", "Listing Updated !");
   res.redirect(`/listings/${id}`);
 };

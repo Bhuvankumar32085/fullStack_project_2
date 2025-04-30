@@ -1,14 +1,90 @@
 <% layout('/layouts/boilerplate.ejs') %>
-<h1 class="h1">All Listings</h1>
+<style>
+   
+    .filters{
+       display: flex;
+       height: 70px;
+       align-items: center;
+       padding: 0 30px 0 30px;
+       position: relative;
+    }
+    .filter{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-left: 2rem;
+        opacity: 0.7;
+    }
+    .filter span{
+        font-size: 0.9rem;
+        margin-top: 6px;
+    }
+
+    .filter:hover{
+        opacity: 1;
+        cursor: pointer;
+    }
+    .taxt-toggle{
+      position: absolute;
+      right: 60px;
+      border: 1px solid black;
+      padding: 5px 10px ;
+      border-radius: 10px ;
+    }
+    .hidden-class{
+        display: none;
+    }
+</style>
+
+<div class="filters">
+    <div class="filter">
+        <i class="fa-solid fa-fire"></i>
+        <span>Trending</span>
+    </div>
+    <div class="filter">
+        <i class="fa-solid fa-bed"></i>
+        <span>Rooms</span>
+    </div>
+    <div class="filter">
+        <i class="fa-solid fa-mountain-city"></i>
+        <span>Iconic cities</span>
+    </div>
+    <div class="filter">
+        <i class="fa-solid fa-mountain-sun"></i>
+        <span>Mountain</span>
+    </div>
+    <div class="filter">
+        <i class="fa-solid fa-umbrella-beach"></i>
+        <span>Beach</span>
+    </div>
+    <div class="filter">
+        <i class="fa-solid fa-chess-rook"></i>
+        <span>Castles</span>
+    </div>
+    <div class="filter">
+        <i class="fa-solid fa-tree"></i>
+        <span>Camping</span>
+    </div>
+    <div class="filter">
+        <i class="fa-solid fa-tractor"></i>
+        <span>Farms</span>
+    </div>
+    <div class="taxt-toggle">
+        <div class="form-check-reverse form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+            <label class="form-check-label" for="switchCheckDefault">Show GST</label>
+        </div>
+    </div>
+</div>
 <div class="card-con">
    <div class="c-card">
     <% for( let i = 0; i < data.length; i++ ) { %>
         <!-- <a href=""> -->
             <div class="card" style="width: 18rem;">
-                <img src="<%= data[i].image%>" class="card-img-top" alt="...">
+                <img src="<%= data[i].image.url%>" class="card-img-top" alt="...">
                 <div class="card-body">
                   <a href="/listings/<%= data[i]._id%>" ><%= data[i].title %></a>
-                  <p class="card-text">Price : <%= data[i].price%></p>
+                  <p class="card-text">Price : <%= data[i].price%>  <i class="hidden-class" id="ss">+18% GST</i></p>
                   <p class="card-text"> Location : <%= data[i].location%></p>
                   <p class="card-text">Contary : <%= data[i].country%></p>
                 </div>
@@ -17,3 +93,13 @@
     <% } %>
    </div>
 </div>
+
+<script>
+    let switchCheckDefault=document.querySelector('#switchCheckDefault')
+    switchCheckDefault.addEventListener('click',(e)=>{
+        let i=document.querySelectorAll('#ss')
+           i.forEach(e=>{
+            e.classList.toggle('hidden-class')
+           })
+    })
+</script>

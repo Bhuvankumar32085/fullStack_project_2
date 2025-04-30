@@ -12,7 +12,8 @@ const Schemaa =new Schema({
     type: String,
   },
   image: {
-    type: String,
+    url:String,
+    filename:String
   },
   price: {
     type: Number,

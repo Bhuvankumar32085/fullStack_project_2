@@ -116,15 +116,11 @@
 <body>
     <div class="form-container">
         <h3>Create a New Listing</h3>
-        <form method="post" action="/listings" class="needs-validation row g-3 ">
-            <div class="col-md-13">
-                <input type="text" form-control name="Listing[title]" placeholder="Enter title" novalidate >
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div>
+        <form enctype="multipart/form-data" method="post" action="/listings" class="needs-validation row g-3 ">
+            <input type="text" name="Listing[title]" placeholder="Enter title" required >
             <input type="text" name="Listing[description]" placeholder="Enter description" required>
-            <input type="url" name="Listing[image]" placeholder="Enter image URL" required>
+            <!-- <input type="url" name="Listing[image]" placeholder="Enter image URL" required> -->
+            <input type="file" name="Listing[image]" placeholder="Enter image URL" required>
             <input type="number" name="Listing[price]" placeholder="Enter price" min="0" required>
             <input type="text" name="Listing[location]" placeholder="Enter location" required>
             <input type="text" name="Listing[country]" placeholder="Enter country" required>
